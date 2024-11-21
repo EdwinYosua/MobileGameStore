@@ -14,6 +14,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+        buildConfigField("String", "BASE_URL", "\"${project.findProperty("BASE_URL")}\"")
+        buildConfigField("String", "API_KEY", "\"${project.findProperty("API_KEY")}\"")
     }
 
     buildTypes {
@@ -34,6 +36,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -49,8 +52,15 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    //Coroutine
+    implementation(libs.kotlinx.coroutines.android)
+
+    //Network
+    implementation (libs.retrofit)
+    implementation(libs.logging.interceptor)
+    implementation(libs.converter.gson)
 
     api(libs.material)
     api(libs.androidx.navigation.ui.ktx)
-
+    api(libs.koin.android)
 }
