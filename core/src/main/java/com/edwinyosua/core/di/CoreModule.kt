@@ -1,6 +1,7 @@
 package com.edwinyosua.core.di
 
 import com.edwinyosua.core.data.remote.network.ApiService
+import com.edwinyosua.core.ui.GameListAdapter
 import com.edwinyosua.core.utils.ConstVal
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -23,4 +24,8 @@ val networkModules = module {
             .build()
         retrofit.create(ApiService::class.java)
     }
+}
+
+val adapterModule = module {
+    factory { GameListAdapter() }
 }
