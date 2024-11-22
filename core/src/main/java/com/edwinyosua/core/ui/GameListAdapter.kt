@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.edwinyosua.core.data.remote.network.ResultsItem
 import com.edwinyosua.core.databinding.ItemGameListBinding
 
@@ -16,6 +17,10 @@ class GameListAdapter : ListAdapter<ResultsItem, GameListAdapter.GameListHolder>
             binding.apply {
                 tvGameTitle.text = data.name
                 tvGameRating.text = data.rating.toString()
+
+                Glide.with(itemView.context)
+                    .load(data.backgroundImage)
+                    .into(ivGameImage)
             }
         }
     }
