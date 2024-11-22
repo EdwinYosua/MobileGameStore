@@ -29,7 +29,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     ApiResponse.Empty -> {}
                     is ApiResponse.Error -> {}
                     ApiResponse.Loading -> {}
-                    is ApiResponse.Success -> gameListAdapter.submitList(gameList.data)
+                    is ApiResponse.Success -> {
+                        gameListAdapter.submitList(gameList.data)
+                        with(binding.rvGame) {
+                            layoutManager = LinearLayoutManager(context)
+                            setHasFixedSize(true)
+                            adapter = gameListAdapter
+                        }
+                    }
                 }
             }
         }
@@ -39,13 +46,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun initAction() {}
 
-    override fun initUi() {
-        with(binding.rvGame) {
-            layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(true)
-            adapter = gameListAdapter
-        }
-    }
+    override fun initUi() {}
 
     override fun initIntent() {}
 
