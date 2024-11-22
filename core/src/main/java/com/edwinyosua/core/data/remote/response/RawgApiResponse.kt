@@ -1,4 +1,4 @@
-package com.edwinyosua.core.data.remote.network
+package com.edwinyosua.core.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 
