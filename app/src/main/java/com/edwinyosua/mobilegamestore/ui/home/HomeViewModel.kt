@@ -4,10 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.edwinyosua.core.data.repository.GameListRepository
 
-class HomeViewModel(private val repo: GameListRepository) : ViewModel() {
+class HomeViewModel(private val gameRepo: GameListRepository) : ViewModel() {
 
-
-    val gameList = repo.getGameList().asLiveData()
-
-
+    val gameList = gameRepo.getGameList().asLiveData()
 }
