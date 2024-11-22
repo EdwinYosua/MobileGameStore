@@ -55,7 +55,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
 
     //Network
-    implementation (libs.retrofit)
+    implementation(libs.retrofit)
     implementation(libs.logging.interceptor)
     implementation(libs.converter.gson)
 

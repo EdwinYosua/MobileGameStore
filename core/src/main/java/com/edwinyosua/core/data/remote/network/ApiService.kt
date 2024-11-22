@@ -1,5 +1,6 @@
 package com.edwinyosua.core.data.remote.network
 
+import com.edwinyosua.core.data.remote.response.RawgApiResponse
 import com.edwinyosua.core.utils.ConstVal
 import retrofit2.http.GET
 import retrofit2.http.Query
