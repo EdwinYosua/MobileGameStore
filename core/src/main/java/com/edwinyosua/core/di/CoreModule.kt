@@ -1,6 +1,8 @@
 package com.edwinyosua.core.di
 
 import com.edwinyosua.core.data.remote.network.ApiService
+import com.edwinyosua.core.data.remote.repository.GameListRepository
+import com.edwinyosua.core.domain.home.repository.IGameListRepository
 import com.edwinyosua.core.ui.GameListAdapter
 import com.edwinyosua.core.utils.ConstVal
 import okhttp3.OkHttpClient
@@ -28,4 +30,8 @@ val networkModules = module {
 
 val adapterModule = module {
     factory { GameListAdapter() }
+}
+
+val repositoryModule = module {
+    single<IGameListRepository> { GameListRepository(get()) }
 }

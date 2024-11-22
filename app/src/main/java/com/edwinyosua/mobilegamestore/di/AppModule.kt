@@ -1,14 +1,14 @@
 package com.edwinyosua.mobilegamestore.di
 
-import com.edwinyosua.core.data.repository.GameListRepository
+import com.edwinyosua.core.domain.home.usecase.GameInteractor
+import com.edwinyosua.core.domain.home.usecase.GameUseCase
 import com.edwinyosua.mobilegamestore.ui.home.HomeViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
-val repositoryModule = module {
-    factory {
-        GameListRepository(get())
-    }
+
+val useCaseModule = module {
+    factory<GameUseCase> { GameInteractor(get()) }
 }
 
 val viewModelModule = module {
