@@ -2,41 +2,52 @@ package com.edwinyosua.mobilegamestore.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.edwinyosua.core.data.remote.network.ApiResponse
+import com.edwinyosua.core.ui.GameListAdapter
+import com.edwinyosua.mobilegamestore.base.BaseFragment
 import com.edwinyosua.mobilegamestore.databinding.FragmentHomeBinding
+import org.koin.android.ext.android.inject
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private val homeViewModel: HomeViewModel by inject()
+    private val gameListAdapter: GameListAdapter by inject()
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
+    override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+    ): FragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+    override fun initObserver() {
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        homeViewModel.gameList.observe(viewLifecycleOwner) { gameList ->
+            if (gameList != null) {
+                when (gameList) {
+                    ApiResponse.Empty -> {}
+                    is ApiResponse.Error -> {}
+                    ApiResponse.Loading -> {}
+                    is ApiResponse.Success -> {
+                        gameListAdapter.submitList(gameList.data)
+                        with(binding.rvGame) {
+                            layoutManager = LinearLayoutManager(context)
+                            setHasFixedSize(true)
+                            adapter = gameListAdapter
+                        }
+                    }
+                }
+            }
         }
-        return root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+    override fun initProcess() {}
+
+    override fun initAction() {}
+
+    override fun initUi() {}
+
+    override fun initIntent() {}
+
 }

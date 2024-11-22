@@ -1,13 +1,10 @@
 package com.edwinyosua.mobilegamestore.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import com.edwinyosua.core.data.repository.GameListRepository
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(private val gameRepo: GameListRepository) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
-    }
-    val text: LiveData<String> = _text
+    val gameList = gameRepo.getGameList().asLiveData()
 }

@@ -1,4 +1,4 @@
-package com.edwinyosua.mobilegamestore
+package com.edwinyosua.core
 
 import org.junit.Test
 
