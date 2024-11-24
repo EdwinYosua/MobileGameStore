@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(libs.converter.gson)
 
+    api(libs.androidx.recyclerview)
     api(libs.glide)
     api(libs.androidx.navigation.fragment.ktx)
     api(libs.material)

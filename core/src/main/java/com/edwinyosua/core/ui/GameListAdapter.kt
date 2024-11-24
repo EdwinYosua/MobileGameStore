@@ -11,6 +11,8 @@ import com.edwinyosua.core.domain.home.model.Games
 
 class GameListAdapter : ListAdapter<Games, GameListAdapter.GameListHolder>(DIFF_CALLBACK) {
 
+    var onItemClick: ((Games) -> Unit)? = null
+
     inner class GameListHolder(private var binding: ItemGameListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Games) {
@@ -23,7 +25,29 @@ class GameListAdapter : ListAdapter<Games, GameListAdapter.GameListHolder>(DIFF_
                     .into(ivGameImage)
             }
         }
+        init {
+            itemView.setOnClickListener {
+                onItemClick?.invoke(getItem(bindingAdapterPosition))
+            }
+        }
     }
+
+//    inner class ListViewHolder(private var binding: ItemListTourismBinding) :
+//        RecyclerView.ViewHolder(binding.root) {
+//        fun bind(data: Tourism) {
+//            Glide.with(itemView.context)
+//                .load(data.image)
+//                .into(binding.ivItemImage)
+//            binding.tvItemTitle.text = data.name
+//            binding.tvItemSubtitle.text = data.address
+//        }
+//
+//        init {
+//            itemView.setOnClickListener {
+//                onItemClick?.invoke(getItem(bindingAdapterPosition))
+//            }
+//        }
+//    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
