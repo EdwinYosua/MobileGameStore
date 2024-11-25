@@ -9,6 +9,6 @@ fun List<ResultsItem>.toDomain(): List<Games> =
             id = it.id,
             name = it.name,
             rating = it.rating,
-            backgroundImage = it.backgroundImage
+            backgroundImage = it.backgroundImage,
         )
     }

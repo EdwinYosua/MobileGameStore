@@ -28,9 +28,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         homeViewModel.gameList.observe(viewLifecycleOwner) { gameList ->
             if (gameList != null) {
                 when (gameList) {
-                    ApiResponse.Empty -> {}
+                    is ApiResponse.Empty -> {}
                     is ApiResponse.Error -> {}
-                    ApiResponse.Loading -> {}
+                    is ApiResponse.Loading -> {}
                     is ApiResponse.Success -> {
                         gameListAdapter.submitList(gameList.data)
                         with(binding.rvGame) {
@@ -53,6 +53,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun initIntent() {
         gameListAdapter.onItemClick = { selectedData ->
             val intent = Intent(activity, DetailActivity::class.java)
+            intent.putExtra(DetailActivity.EXTRA_DATA, selectedData)
             startActivity(intent)
         }
     }

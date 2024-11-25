@@ -25,6 +25,7 @@ class GameListAdapter : ListAdapter<Games, GameListAdapter.GameListHolder>(DIFF_
                     .into(ivGameImage)
             }
         }
+
         init {
             itemView.setOnClickListener {
                 onItemClick?.invoke(getItem(bindingAdapterPosition))

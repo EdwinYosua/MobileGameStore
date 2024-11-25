@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class ResultsItem(
 
     @field:SerializedName("id")
-    val id: Int,
+    val id: Int? = null,
 
     @field:SerializedName("name")
     val name: String,
@@ -15,6 +15,9 @@ data class ResultsItem(
 
     @field:SerializedName("background_image")
     val backgroundImage: String,
+
+    @field:SerializedName("description_raw")
+    val descriptionRaw: String,
 
 //    @field:SerializedName("added")
 //    val added: Int,

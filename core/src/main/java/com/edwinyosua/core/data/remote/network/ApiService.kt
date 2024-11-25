@@ -1,8 +1,10 @@
 package com.edwinyosua.core.data.remote.network
 
+import com.edwinyosua.core.data.remote.response.GameDetailResponse
 import com.edwinyosua.core.data.remote.response.RawgApiResponse
 import com.edwinyosua.core.utils.ConstVal
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -12,4 +14,9 @@ interface ApiService {
         @Query("key") key: String = ConstVal.API_KEY
     ): RawgApiResponse
 
+    @GET("games/{id}")
+    suspend fun getGameDetail(
+        @Path("id") id: String,
+        @Query("key") key: String = ConstVal.API_KEY
+    ): GameDetailResponse
 }
