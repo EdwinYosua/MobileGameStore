@@ -2,7 +2,7 @@ package com.edwinyosua.core.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class ResultsItem(
+data class GameListResponse(
 
     @field:SerializedName("id")
     val id: Int? = null,
@@ -16,8 +16,6 @@ data class ResultsItem(
     @field:SerializedName("background_image")
     val backgroundImage: String,
 
-    @field:SerializedName("description_raw")
-    val descriptionRaw: String,
 
 //    @field:SerializedName("added")
 //    val added: Int,

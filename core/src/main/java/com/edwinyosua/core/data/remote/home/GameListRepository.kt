@@ -1,4 +1,4 @@
-package com.edwinyosua.core.data.remote.repository
+package com.edwinyosua.core.data.remote.home
 
 import android.util.Log
 import com.edwinyosua.core.data.remote.network.ApiResponse

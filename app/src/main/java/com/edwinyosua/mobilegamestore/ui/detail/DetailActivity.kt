@@ -45,7 +45,7 @@ class DetailActivity : AppCompatActivity() {
             detailViewModel.gameDetail.observe(this@DetailActivity) { gameDetail ->
                 when (gameDetail) {
                     is ApiResponse.Loading -> {}
-                    is ApiResponse.Success -> tvGameDesc.text = gameDetail.data.descriptionRaw
+                    is ApiResponse.Success -> tvGameDesc.text = gameDetail.data.description
                     is ApiResponse.Empty -> tvGameDesc.text = "No Description"
                     is ApiResponse.Error -> {}
                 }

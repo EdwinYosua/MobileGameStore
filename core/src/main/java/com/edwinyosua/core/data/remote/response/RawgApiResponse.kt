@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class RawgApiResponse(
 
     @field:SerializedName("results")
-    val results: List<ResultsItem>,
+    val results: List<GameListResponse>,
 
 //    @field:SerializedName("description")
 //    val description: String,
