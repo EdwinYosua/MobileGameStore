@@ -17,4 +17,4 @@ data class GameListResponse(
     val backgroundImage: String,
 
 
-)
+    )

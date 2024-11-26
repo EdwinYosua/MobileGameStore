@@ -1,21 +1,14 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.dynamic.feature)
     alias(libs.plugins.jetbrains.kotlin.android)
 }
-
 android {
-    namespace = "com.edwinyosua.mobilegamestore"
+    namespace = "com.edwinyosua.favorite"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.edwinyosua.mobilegamestore"
         minSdk = 29
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
@@ -38,9 +31,10 @@ android {
         viewBinding = true
         buildConfig = true
     }
-    dynamicFeatures += setOf(":favorite")
 }
 
 dependencies {
+    implementation(project(":app"))
     implementation(project(":core"))
+
 }

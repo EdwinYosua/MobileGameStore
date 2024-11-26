@@ -5,5 +5,5 @@ import com.edwinyosua.core.domain.detail.model.GameDetail
 import kotlinx.coroutines.flow.Flow
 
 interface IGameDetailRepository {
-    fun getGameDetail(gameId: String) : Flow<ApiResponse<GameDetail>>
+    fun getGameDetail(gameId: String): Flow<ApiResponse<GameDetail>>
 }

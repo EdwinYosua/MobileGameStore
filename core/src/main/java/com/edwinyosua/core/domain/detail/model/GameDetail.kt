@@ -5,5 +5,5 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class GameDetail(
-    val description : String
+    val description: String
 ) : Parcelable

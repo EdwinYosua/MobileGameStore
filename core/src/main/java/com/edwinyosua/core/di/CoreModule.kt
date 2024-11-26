@@ -1,8 +1,8 @@
 package com.edwinyosua.core.di
 
-import com.edwinyosua.core.data.remote.network.ApiService
 import com.edwinyosua.core.data.remote.detail.GameDetailRepository
 import com.edwinyosua.core.data.remote.home.GameListRepository
+import com.edwinyosua.core.data.remote.network.ApiService
 import com.edwinyosua.core.domain.detail.repository.IGameDetailRepository
 import com.edwinyosua.core.domain.home.repository.IGameListRepository
 import com.edwinyosua.core.ui.GameListAdapter

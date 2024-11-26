@@ -7,4 +7,4 @@ data class GameDetailResponse(
     @field:SerializedName("description_raw")
     val descriptionRaw: String,
 
-)
+    )
