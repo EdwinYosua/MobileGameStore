@@ -5,8 +5,14 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Games(
-    val id: Int,
+    val id: Int? = null,
     val name: String,
     val rating: Double,
-    val backgroundImage: String
+    val backgroundImage: String,
+//    val description: GamesDescription
 ) : Parcelable
+
+//@Parcelize
+//data class GamesDescription(
+//    val description: String
+//) : Parcelable
