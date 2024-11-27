@@ -75,10 +75,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 title = getString(R.string.app_name)
             }
 
-            R.id.navigation_dashboard -> Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT)
+            R.id.navigation_favorite -> Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT)
                 .show()
 
-            R.id.navigation_notifications -> Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT)
+            R.id.navigation_shop_cart -> Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT)
                 .show()
         }
         supportActionBar?.title = title
