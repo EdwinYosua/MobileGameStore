@@ -12,7 +12,6 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.edwinyosua.mobilegamestore.databinding.ActivityMainBinding
-import com.edwinyosua.mobilegamestore.ui.dashboard.DashboardFragment
 import com.edwinyosua.mobilegamestore.ui.home.HomeFragment
 import com.google.android.material.navigation.NavigationView
 
@@ -83,7 +82,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.navigation_favorite ->
 //                Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
             {
-                val uri =Uri.parse("mobilegamestore://favorite")
+                val uri = Uri.parse("mobilegamestore://favorite")
                 startActivity(Intent(Intent.ACTION_VIEW, uri))
             }
 
