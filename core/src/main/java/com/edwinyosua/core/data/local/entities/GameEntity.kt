@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.edwinyosua.core.utils.ConstVal
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -11,7 +12,7 @@ import kotlinx.parcelize.Parcelize
 data class GameEntity(
 
     @PrimaryKey
-    val id: String,
+    val id: Int,
     @ColumnInfo("name")
     val name: String,
     @ColumnInfo("rating")
@@ -19,7 +20,7 @@ data class GameEntity(
     @ColumnInfo("backgroundImg")
     val backgroundImg: String,
     @ColumnInfo("description")
-    val description: String? = "",
+    val description: String? = ConstVal.emptyString,
     @ColumnInfo("favorite")
     val isFavorite: Boolean? = false
 
