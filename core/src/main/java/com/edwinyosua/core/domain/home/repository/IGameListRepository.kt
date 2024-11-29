@@ -8,7 +8,4 @@ import kotlinx.coroutines.flow.Flow
 interface IGameListRepository {
 
     fun getGameList(): Flow<ApiResponse<List<Games>>>
-
-    fun getGameDetail(gameId: String): Flow<ApiResponse<GameDetailResponse>>
-
 }

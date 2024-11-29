@@ -9,8 +9,4 @@ import kotlinx.coroutines.flow.Flow
 class GameInteractor(private val gameRepository: IGameListRepository) : GameUseCase {
     override fun getGameList(): Flow<ApiResponse<List<Games>>> = gameRepository.getGameList()
 
-    override fun getGameDetail(gameId: String): Flow<ApiResponse<GameDetailResponse>> =
-        gameRepository.getGameDetail(gameId)
-
-
 }
