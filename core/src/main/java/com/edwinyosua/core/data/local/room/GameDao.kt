@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface GameDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertGameList(gameList: List<GameEntity>)
+    suspend fun insertGameList(gameList: GameEntity)
 
     @Query("SELECT * FROM game_table ORDER BY id ASC")
     fun getAllGameList(): Flow<List<GameEntity>>

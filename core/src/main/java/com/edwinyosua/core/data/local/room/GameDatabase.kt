@@ -8,6 +8,6 @@ import com.edwinyosua.core.data.local.entities.GameEntity
 abstract class GameDatabase : RoomDatabase() {
 
 
-    abstract fun gameDao() : GameDao
+    abstract fun gameDao(): GameDao
 
 }

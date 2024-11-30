@@ -22,6 +22,6 @@ data class GameEntity(
     @ColumnInfo("description")
     val description: String? = ConstVal.emptyString,
     @ColumnInfo("favorite")
-    val isFavorite: Boolean? = false
+    val isFavorite: Boolean = false
 
 ) : Parcelable
