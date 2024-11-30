@@ -7,4 +7,5 @@ import com.edwinyosua.core.domain.home.usecase.GameUseCase
 class HomeViewModel(gameRepo: GameUseCase) : ViewModel() {
 
     val gameList = gameRepo.getGameList().asLiveData()
+
 }
