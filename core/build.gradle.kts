@@ -47,9 +47,17 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    //room
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    androidTestImplementation(libs.androidx.room.testing)
+
 
     //Coroutine
     implementation(libs.kotlinx.coroutines.android)
@@ -59,10 +67,15 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(libs.converter.gson)
 
+
     api(libs.androidx.recyclerview)
-    api(libs.glide)
-    api(libs.androidx.navigation.fragment.ktx)
-    api(libs.material)
+
     api(libs.androidx.navigation.ui.ktx)
+    api(libs.androidx.navigation.fragment.ktx)
+
+    api(libs.material)
+
+    api(libs.glide)
+
     api(libs.koin.android)
 }

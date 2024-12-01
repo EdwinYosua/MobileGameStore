@@ -33,23 +33,6 @@ class GameListAdapter : ListAdapter<Games, GameListAdapter.GameListHolder>(DIFF_
         }
     }
 
-//    inner class ListViewHolder(private var binding: ItemListTourismBinding) :
-//        RecyclerView.ViewHolder(binding.root) {
-//        fun bind(data: Tourism) {
-//            Glide.with(itemView.context)
-//                .load(data.image)
-//                .into(binding.ivItemImage)
-//            binding.tvItemTitle.text = data.name
-//            binding.tvItemSubtitle.text = data.address
-//        }
-//
-//        init {
-//            itemView.setOnClickListener {
-//                onItemClick?.invoke(getItem(bindingAdapterPosition))
-//            }
-//        }
-//    }
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
