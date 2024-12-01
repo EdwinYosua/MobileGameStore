@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class GameListResponse(
 
     @field:SerializedName("id")
-    val id: Int? = null,
+    val id: Int,
 
     @field:SerializedName("name")
     val name: String,
