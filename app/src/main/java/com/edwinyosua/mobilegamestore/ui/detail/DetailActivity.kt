@@ -3,6 +3,7 @@ package com.edwinyosua.mobilegamestore.ui.detail
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.content.IntentCompat.getParcelableExtra
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -30,30 +31,52 @@ class DetailActivity : AppCompatActivity() {
             insets
         }
 
-
         val gameDetailData = getParcelableExtra(intent, EXTRA_DATA, Games::class.java)
-        showGameDetail(gameDetailData)
+        if (gameDetailData != null) {
+            showGameDetail(gameDetailData)
+        }
+
     }
 
-    private fun showGameDetail(games: Games?) {
+    private fun showGameDetail(games: Games) {
 
         binding.apply {
-            tvGameName.text = games?.name ?: "No Data"
-            tvGameRating.text = games?.rating.toString()
+            tvGameName.text = games.name
+            tvGameRating.text = games.rating.toString()
 
-            detailViewModel.getGameDetail(games?.id.toString())
+            detailViewModel.getGameDetail(games.id.toString())
             detailViewModel.gameDetail.observe(this@DetailActivity) { gameDetail ->
                 when (gameDetail) {
                     is ApiResponse.Loading -> {}
-                    is ApiResponse.Success -> tvGameDesc.text = gameDetail.data.description
+                    is ApiResponse.Success -> {
+                        tvGameDesc.text = gameDetail.data.description
+                        fab.setOnClickListener {
+                            detailViewModel.setFavorite(games, gameDetail.data)
+                            setFavIcon(true)
+                        }
+                    }
+
                     is ApiResponse.Empty -> tvGameDesc.text = "No Description"
                     is ApiResponse.Error -> {}
                 }
+
             }
 
+
             Glide.with(this@DetailActivity)
-                .load(games?.backgroundImage)
+                .load(games.backgroundImage)
                 .into(imvGameImage)
+        }
+    }
+
+    private fun setFavIcon(favStatus: Boolean) {
+        binding.apply {
+            fab.setImageDrawable(
+                ContextCompat.getDrawable(
+                    this@DetailActivity,
+                    R.drawable.ic_favorite_white
+                )
+            )
         }
     }
 

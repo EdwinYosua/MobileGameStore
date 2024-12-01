@@ -2,6 +2,7 @@ package com.edwinyosua.mobilegamestore.base
 
 import android.app.Application
 import com.edwinyosua.core.di.adapterModule
+import com.edwinyosua.core.di.dataBaseModule
 import com.edwinyosua.core.di.networkModules
 import com.edwinyosua.core.di.repositoryModule
 import com.edwinyosua.mobilegamestore.di.useCaseModule
@@ -23,7 +24,8 @@ class BaseApplication : Application() {
                     viewModelModule,
                     adapterModule,
                     useCaseModule,
-                    repositoryModule
+                    repositoryModule,
+                    dataBaseModule
                 )
 
             )
