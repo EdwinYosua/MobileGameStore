@@ -9,6 +9,11 @@ class LocalDataSources(private val gameDao: GameDao) {
 
     fun getAllGameList(): Flow<List<GameEntity>> = gameDao.getAllGameList()
 
-    suspend fun insertGameList(gameList: GameEntity) = gameDao.insertGameList(gameList)
+    fun getGameData(gameId: Int): Flow<GameEntity> = gameDao.getGameData(gameId)
+
+    suspend fun insertGame(gameData: GameEntity) = gameDao.insertGame(gameData)
+
+    fun updateGame(gameData: GameEntity) = gameDao.updateGameData(gameData)
+
 
 }

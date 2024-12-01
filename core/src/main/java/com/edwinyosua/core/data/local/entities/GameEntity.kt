@@ -20,8 +20,8 @@ data class GameEntity(
     @ColumnInfo("backgroundImg")
     val backgroundImg: String,
     @ColumnInfo("description")
-    val description: String? = ConstVal.emptyString,
+    val description: String,
     @ColumnInfo("favorite")
-    val isFavorite: Boolean = false
+    val isFavorite: Boolean
 
 ) : Parcelable
