@@ -2,10 +2,11 @@ package com.edwinyosua.core.data.repository
 
 import android.util.Log
 import com.edwinyosua.core.data.local.LocalDataSources
+import com.edwinyosua.core.data.local.entities.GameEntity
 import com.edwinyosua.core.data.remote.network.ApiResponse
 import com.edwinyosua.core.data.remote.network.ApiService
 import com.edwinyosua.core.domain.detail.mapper.toDomain
-import com.edwinyosua.core.domain.detail.model.GameDetail
+import com.edwinyosua.core.domain.detail.model.GameDescription
 import com.edwinyosua.core.domain.detail.repository.IGameDetailRepository
 import com.edwinyosua.core.domain.home.model.Games
 import com.edwinyosua.core.utils.ConstVal
@@ -19,27 +20,34 @@ class GameDetailRepository(
     private val localData: LocalDataSources,
     private val apiService: ApiService
 ) : IGameDetailRepository {
-    override fun getGameDetail(gameId: String): Flow<ApiResponse<GameDetail>> = flow {
+
+
+    override fun getGameDescription(gameId: Int): Flow<ApiResponse<GameDescription>> = flow {
 
         try {
             emit(ApiResponse.Loading)
-            val response = apiService.getGameDetail(gameId)
-            val gameDetail = response.toDomain()
-            if (gameId != ConstVal.emptyString) {
-                emit(ApiResponse.Success(gameDetail))
-            } else {
+            val response = apiService.getGameDescription(gameId)
+            val gameData = response.toDomain()
+
+            if (gameData.toString() != ConstVal.emptyString) {
+                emit(ApiResponse.Success(gameData))
+            }
+
+            if (gameData.toString() == ConstVal.emptyString) {
                 emit(ApiResponse.Empty)
             }
+
         } catch (e: Exception) {
             emit(ApiResponse.Error(e.message.toString()))
-            e.printStackTrace()
-            Log.e("GameDetailRepository/getGameDetail", e.toString())
+            Log.e("GameDetailRepository", e.toString())
         }
-
     }.flowOn(Dispatchers.IO)
 
-    override suspend fun insertFavGame(game: Games, gameDescription: GameDetail) {
-        val insertedGameFav = DataMapper.mapGameDataToEntity(game, gameDescription)
-        localData.insertGameList(insertedGameFav)
+    override fun getGameDetail(gameId: Int): Flow<GameEntity> = localData.getGameData(gameId).flowOn(Dispatchers.IO)
+
+    override suspend fun insertGameData(game: Games, gameDescription: GameDescription) {
+        val gameFav = DataMapper.mapGameDataToEntity(game, gameDescription)
+        localData.insertGame(gameFav)
     }
+
 }

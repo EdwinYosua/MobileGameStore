@@ -1,5 +1,6 @@
 package com.edwinyosua.mobilegamestore.ui.detail
 
+import android.nfc.NfcAdapter.EXTRA_DATA
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -39,45 +40,64 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun showGameDetail(games: Games) {
-
         binding.apply {
-            tvGameName.text = games.name
-            tvGameRating.text = games.rating.toString()
-
-            detailViewModel.getGameDetail(games.id.toString())
-            detailViewModel.gameDetail.observe(this@DetailActivity) { gameDetail ->
-                when (gameDetail) {
-                    is ApiResponse.Loading -> {}
-                    is ApiResponse.Success -> {
-                        tvGameDesc.text = gameDetail.data.description
-                        fab.setOnClickListener {
-                            detailViewModel.setFavorite(games, gameDetail.data)
-                            setFavIcon(true)
+            detailViewModel.apply {
+                getDetail(games.id).observe(this@DetailActivity) { localGameData ->
+                    if (localGameData != null) {
+                        localGameData.apply {
+                            tvGameName.text = name
+                            tvGameRating.text = rating.toString()
+                            tvGameDesc.text = description
+                            Glide.with(this@DetailActivity)
+                                .load(backgroundImg)
+                                .into(imvGameImage)
+                            setFavIcon(isFavorite)
                         }
-                    }
+                    } else {
+                        games.apply {
+                            tvGameName.text = name
+                            tvGameRating.text = rating.toString()
+                            getDescription(id).observe(this@DetailActivity) { desc ->
+                                when (desc) {
+                                    is ApiResponse.Empty -> {}
+                                    is ApiResponse.Error -> {}
+                                    is ApiResponse.Loading -> {}
+                                    is ApiResponse.Success -> {
+                                        tvGameDesc.text = desc.data.description
+                                        insertGameDataToLocal(games, desc.data)
+                                    }
+                                }
+                            }
+                            Glide.with(this@DetailActivity)
+                                .load(backgroundImage)
+                                .into(imvGameImage)
+                            setFavIcon(false)
+                        }
 
-                    is ApiResponse.Empty -> tvGameDesc.text = "No Description"
-                    is ApiResponse.Error -> {}
+                    }
                 }
 
             }
-
-
-            Glide.with(this@DetailActivity)
-                .load(games.backgroundImage)
-                .into(imvGameImage)
         }
     }
 
     private fun setFavIcon(favStatus: Boolean) {
-        binding.apply {
-            fab.setImageDrawable(
+        if (favStatus) {
+            binding.fab.setImageDrawable(
                 ContextCompat.getDrawable(
                     this@DetailActivity,
                     R.drawable.ic_favorite_white
                 )
             )
+        } else {
+            binding.fab.setImageDrawable(
+                ContextCompat.getDrawable(
+                    this@DetailActivity,
+                    R.drawable.ic_not_favorite_white
+                )
+            )
         }
+
     }
 
 

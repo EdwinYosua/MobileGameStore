@@ -15,8 +15,8 @@ interface ApiService {
     ): RawgApiResponse
 
     @GET("games/{id}")
-    suspend fun getGameDetail(
-        @Path("id") id: String,
+    suspend fun getGameDescription(
+        @Path("id") id: Int,
         @Query("key") key: String = ConstVal.API_KEY
     ): GameDetailResponse
 }
