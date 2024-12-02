@@ -9,7 +9,6 @@ data class Games(
     val name: String,
     val rating: Double,
     val backgroundImage: String,
-//    val description: GamesDescription
 ) : Parcelable
 
 //@Parcelize
