@@ -1,12 +1,13 @@
 package com.edwinyosua.core.utils
 
 import com.edwinyosua.core.data.local.entities.GameEntity
+import com.edwinyosua.core.domain.Games
 import com.edwinyosua.core.domain.detail.model.GameDescription
-import com.edwinyosua.core.domain.home.model.Games
+import com.edwinyosua.core.domain.home.model.GamesList
 
 object DataMapper {
 
-    fun mapGameDataToEntity(gameData: Games, gameDescription: GameDescription): GameEntity =
+    fun mapGameDataToEntity(gameData: GamesList, gameDescription: GameDescription): GameEntity =
         GameEntity(
             id = gameData.id,
             name = gameData.name,
@@ -14,5 +15,38 @@ object DataMapper {
             backgroundImg = gameData.backgroundImage,
             description = gameDescription.description,
             isFavorite = false
+        )
+
+    fun mapEntityToDomain(input: GameEntity): Games =
+        Games(
+            id = input.id,
+            name = input.name,
+            rating = input.rating,
+            backgroundImg = input.backgroundImg,
+            description = input.description,
+            isFavorite = input.isFavorite
+        )
+
+    fun mapEntityListToDomainList(input: List<GameEntity>): List<Games> =
+        input.map { gameList ->
+            Games(
+                id = gameList.id,
+                name = gameList.name,
+                rating = gameList.rating,
+                backgroundImg = gameList.backgroundImg,
+                description = gameList.description,
+                isFavorite = gameList.isFavorite
+            )
+        }
+
+
+    fun mapDomainToEntity(games: Games): GameEntity =
+        GameEntity(
+            id = games.id,
+            name = games.name,
+            rating = games.rating,
+            backgroundImg = games.backgroundImg,
+            description = games.backgroundImg,
+            isFavorite = games.isFavorite
         )
 }
