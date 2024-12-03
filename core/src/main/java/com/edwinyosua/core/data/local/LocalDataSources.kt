@@ -13,7 +13,9 @@ class LocalDataSources(private val gameDao: GameDao) {
 
     suspend fun insertGame(gameData: GameEntity) = gameDao.insertGame(gameData)
 
-    fun updateGame(gameData: GameEntity) = gameDao.updateGameData(gameData)
-
+    fun updateGame(gameData: GameEntity, newState: Boolean) {
+        gameData.isFavorite = newState
+        gameDao.updateGameData(gameData)
+    }
 
 }

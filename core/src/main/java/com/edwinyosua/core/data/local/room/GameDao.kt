@@ -17,7 +17,7 @@ interface GameDao {
     @Update
     fun updateGameData(gameData: GameEntity)
 
-    @Query("SELECT * FROM game_table ORDER BY id ASC")
+    @Query("SELECT * FROM game_table WHERE favorite = 1")
     fun getAllGameList(): Flow<List<GameEntity>>
 
     @Query("SELECT * FROM game_table WHERE id = :gameId")
