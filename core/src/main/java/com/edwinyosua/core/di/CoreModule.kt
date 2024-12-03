@@ -12,6 +12,7 @@ import com.edwinyosua.core.domain.favorite.IGameFavoriteRepository
 import com.edwinyosua.core.domain.home.repository.IGameListRepository
 import com.edwinyosua.core.ui.GameFavListAdapter
 import com.edwinyosua.core.ui.GameListAdapter
+import com.edwinyosua.core.utils.AppExecutors
 import com.edwinyosua.core.utils.ConstVal
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -54,7 +55,8 @@ val adapterModule = module {
 
 val repositoryModule = module {
     single<IGameListRepository> { GameListRepository(get()) }
-    single<IGameDetailRepository> { GameDetailRepository(get(), get()) }
+    single<IGameDetailRepository> { GameDetailRepository(get(), get(), get()) }
     single<IGameFavoriteRepository> { GameFavoriteRepository(get()) }
     single { LocalDataSources(get()) }
+    factory { AppExecutors() }
 }
