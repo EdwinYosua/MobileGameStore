@@ -12,6 +12,8 @@ import com.edwinyosua.core.domain.favorite.GameListFavorite
 class GameFavListAdapter :
     ListAdapter<GameListFavorite, GameFavListAdapter.FavGameListHolder>(FAV_DIFF_CALLBACK) {
 
+    var onItemClick: ((GameListFavorite) -> Unit)? = null
+
     inner class FavGameListHolder(private val binding: ItemGameListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: GameListFavorite) {
@@ -22,6 +24,12 @@ class GameFavListAdapter :
                 Glide.with(itemView.context)
                     .load(data.backgroundImg)
                     .into(ivGameImage)
+            }
+        }
+
+        init {
+            itemView.setOnClickListener {
+                onItemClick?.invoke(getItem(bindingAdapterPosition))
             }
         }
 
