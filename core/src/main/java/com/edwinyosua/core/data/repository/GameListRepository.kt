@@ -1,6 +1,5 @@
 package com.edwinyosua.core.data.repository
 
-import android.util.Log
 import com.edwinyosua.core.data.remote.network.ApiResponse
 import com.edwinyosua.core.data.remote.network.ApiService
 import com.edwinyosua.core.domain.home.mapper.toDomain
@@ -19,6 +18,8 @@ class GameListRepository(
         try {
             emit(ApiResponse.Loading)
             val response = apiService.getGameList()
+
+//          MAP DATA FROM API TO DOMAIN
             val gameList = response.results.toDomain()
 
             if (gameList.isNotEmpty()) {
@@ -29,7 +30,6 @@ class GameListRepository(
                 emit(ApiResponse.Empty)
             }
         } catch (e: Exception) {
-            Log.e("GameListRepository/getGameList", e.toString())
             e.printStackTrace()
             emit(ApiResponse.Error(e.message.toString()))
         }

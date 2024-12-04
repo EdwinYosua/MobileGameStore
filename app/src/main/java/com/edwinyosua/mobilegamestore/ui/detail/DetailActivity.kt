@@ -32,7 +32,9 @@ class DetailActivity : AppCompatActivity() {
             insets
         }
 
+//      RECEIVE THE DATA FROM HOME PAGE
         val gameDetailData = getParcelableExtra(intent, EXTRA_DATA, GamesList::class.java)
+
         if (gameDetailData != null) {
             showGameDetail(gameDetailData)
             checkGameIsFavorite()
@@ -45,9 +47,13 @@ class DetailActivity : AppCompatActivity() {
             setFavIcon(detail.isFavorite)
             var isFavorite = detail.isFavorite
 
+
             binding.fab.setOnClickListener {
                 isFavorite = !isFavorite
                 setFavIcon(isFavorite)
+                detailViewModel.setFavorite(detail, isFavorite)
+
+//              TO INFORM THE FAVORITE STATUS
                 if (isFavorite) {
                     Toast.makeText(this@DetailActivity, "Added To Favorite", Toast.LENGTH_SHORT)
                         .show()
@@ -55,7 +61,6 @@ class DetailActivity : AppCompatActivity() {
                     Toast.makeText(this@DetailActivity, "Removed From Favorite", Toast.LENGTH_LONG)
                         .show()
                 }
-                detailViewModel.setFavorite(detail, isFavorite)
             }
         }
     }
@@ -72,9 +77,13 @@ class DetailActivity : AppCompatActivity() {
                             is ApiResponse.Error -> {}
                             is ApiResponse.Loading -> {}
                             is ApiResponse.Success -> {
+//                              FETCH ITEM DESCRIPTION FROM API
+//                              SINCE THE DATA AT HOME PAGE COMES FROM DIFFERENT GSON OBJECT
                                 tvGameDesc.text = gameDesc.data.description
 
 //                              PUT THE DATA FROM HOME AND API(GAME DESCRIPTION) TO LOCAL
+//                              EVERY TIME THE ITEM DETAIL CLICKED
+//                              BECAUSE THE LIST AT HOME PAGE KEEP UPDATING
                                 insertGameDataToLocal(games, gameDesc.data)
                             }
                         }
@@ -83,54 +92,6 @@ class DetailActivity : AppCompatActivity() {
                         .load(backgroundImage)
                         .into(imvGameImage)
                 }
-
-
-//                CHECK IF THE DATA IS STORED IN LOCAL BY ID SENT FROM HOME UI
-//                IF THE DATA IS NOT IN LOCAL, WE APPLY THE DATA FROM HOME UI AND THE DESCRIPTION FROM API INSTEAD
-//                getDetail(games.id).observe(this@DetailActivity) { localGameData ->
-//                    if (localGameData.id == games.id) {
-//                        localGameData.apply {
-//                            tvGameName.text = name
-//                            tvGameRating.text = rating.toString()
-//                            tvGameDesc.text = description
-//                            Glide.with(this@DetailActivity)
-//                                .load(backgroundImg)
-//                                .into(imvGameImage)
-//                            setFavIcon(isFavorite)
-//                        }
-//                    } else {
-//                        games.apply {
-//                            tvGameName.text = name
-//                            tvGameRating.text = rating.toString()
-//                            getDescription(id).observe(this@DetailActivity) { desc ->
-//                                when (desc) {
-//                                    is ApiResponse.Empty -> {}
-//                                    is ApiResponse.Error -> {}
-//                                    is ApiResponse.Loading -> {}
-//                                    is ApiResponse.Success -> {
-//                                        tvGameDesc.text = desc.data.description
-//
-//                                        //every item click, save the item data to local
-//                                        //since the list @Home keep updating
-//                                        insertGameDataToLocal(games, desc.data)
-//                                    }
-//                                }
-//                            }
-//                            Glide.with(this@DetailActivity)
-//                                .load(backgroundImage)
-//                                .into(imvGameImage)
-//                            setFavIcon(false)
-//                        }
-//                    }
-//                  HOW TO SET THE GAME AS FAVORITE ????
-//                    fab.setOnClickListener {
-//                        var favoriteStatus = localGameData.isFavorite
-//                        favoriteStatus = !favoriteStatus
-//                        setFavIcon(favoriteStatus)
-//                        detailViewModel.setFavorite(localGameData, favoriteStatus)
-//                        Log.e("Set Favorite", localGameData.toString())
-//                    }
-//                }
             }
         }
     }

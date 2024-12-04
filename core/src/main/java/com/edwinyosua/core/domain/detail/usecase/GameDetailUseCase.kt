@@ -1,6 +1,5 @@
 package com.edwinyosua.core.domain.detail.usecase
 
-import com.edwinyosua.core.data.local.entities.GameEntity
 import com.edwinyosua.core.data.remote.network.ApiResponse
 import com.edwinyosua.core.domain.Games
 import com.edwinyosua.core.domain.detail.model.GameDescription
@@ -10,7 +9,6 @@ import kotlinx.coroutines.flow.Flow
 interface GameDetailUseCase {
 
 
-
     fun getGameDetail(gameId: Int): Flow<Games>
 
     fun getGameDescription(gameId: Int): Flow<ApiResponse<GameDescription>>
@@ -18,7 +16,6 @@ interface GameDetailUseCase {
     fun setFavorite(gameData: Games, newState: Boolean)
 
     suspend fun insertGameData(game: GamesList, gameDescription: GameDescription)
-
 
 
 }

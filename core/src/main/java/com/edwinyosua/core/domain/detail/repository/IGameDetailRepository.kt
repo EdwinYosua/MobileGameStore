@@ -1,6 +1,5 @@
 package com.edwinyosua.core.domain.detail.repository
 
-import com.edwinyosua.core.data.local.entities.GameEntity
 import com.edwinyosua.core.data.remote.network.ApiResponse
 import com.edwinyosua.core.domain.Games
 import com.edwinyosua.core.domain.detail.model.GameDescription

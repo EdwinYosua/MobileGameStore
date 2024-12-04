@@ -25,6 +25,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun initObserver() {
 
+//      FETCH LIST ITEM WITH DATA(NAME, RATING, IMAGE) FROM API
         homeViewModel.gameList.observe(viewLifecycleOwner) { gameList ->
             if (gameList != null) {
                 when (gameList) {
@@ -32,6 +33,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     is ApiResponse.Error -> {}
                     is ApiResponse.Loading -> {}
                     is ApiResponse.Success -> {
+//                      SET UP THE LIST TO RECYCLERVIEW
                         gameListAdapter.submitList(gameList.data)
                         with(binding.rvGame) {
                             layoutManager = LinearLayoutManager(context)
@@ -51,6 +53,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun initUi() {}
 
     override fun initIntent() {
+//      SEND THE FETCHED DATA TO DETAIL PAGE THROUGH INTENT
         gameListAdapter.onItemClick = { selectedData ->
             val intent = Intent(activity, DetailActivity::class.java)
             intent.putExtra(DetailActivity.EXTRA_DATA, selectedData)
