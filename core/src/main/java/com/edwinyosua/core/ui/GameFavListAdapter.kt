@@ -6,15 +6,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.edwinyosua.core.data.local.entities.GameEntity
 import com.edwinyosua.core.databinding.ItemGameListBinding
+import com.edwinyosua.core.domain.favorite.GameListFavorite
 
 class GameFavListAdapter :
-    ListAdapter<GameEntity, GameFavListAdapter.FavGameListHolder>(FAV_DIFF_CALLBACK) {
+    ListAdapter<GameListFavorite, GameFavListAdapter.FavGameListHolder>(FAV_DIFF_CALLBACK) {
 
     inner class FavGameListHolder(private val binding: ItemGameListBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: GameEntity) {
+        fun bind(data: GameListFavorite) {
             binding.apply {
                 tvGameTitle.text = data.name
                 tvGameRating.text = data.rating.toString()
@@ -41,13 +41,17 @@ class GameFavListAdapter :
 
 
     companion object {
-        val FAV_DIFF_CALLBACK: DiffUtil.ItemCallback<GameEntity> =
-            object : DiffUtil.ItemCallback<GameEntity>() {
-                override fun areItemsTheSame(oldItem: GameEntity, newItem: GameEntity): Boolean =
-                    oldItem.id == newItem.id
+        val FAV_DIFF_CALLBACK: DiffUtil.ItemCallback<GameListFavorite> =
+            object : DiffUtil.ItemCallback<GameListFavorite>() {
+                override fun areItemsTheSame(
+                    oldItem: GameListFavorite,
+                    newItem: GameListFavorite
+                ): Boolean = oldItem.id == newItem.id
 
-                override fun areContentsTheSame(oldItem: GameEntity, newItem: GameEntity): Boolean =
-                    oldItem.id == newItem.id
+                override fun areContentsTheSame(
+                    oldItem: GameListFavorite,
+                    newItem: GameListFavorite
+                ): Boolean = oldItem.id == newItem.id
 
             }
     }

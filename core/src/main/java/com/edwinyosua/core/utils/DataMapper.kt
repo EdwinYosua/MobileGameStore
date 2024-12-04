@@ -3,6 +3,7 @@ package com.edwinyosua.core.utils
 import com.edwinyosua.core.data.local.entities.GameEntity
 import com.edwinyosua.core.domain.Games
 import com.edwinyosua.core.domain.detail.model.GameDescription
+import com.edwinyosua.core.domain.favorite.GameListFavorite
 import com.edwinyosua.core.domain.home.model.GamesList
 
 object DataMapper {
@@ -16,6 +17,18 @@ object DataMapper {
             description = gameDescription.description,
             isFavorite = false
         )
+
+    fun mapFavEntityToFavDomain(input: List<GameEntity>): List<GameListFavorite> =
+        input.map { favList ->
+            GameListFavorite(
+                id = favList.id,
+                name = favList.name,
+                rating = favList.rating,
+                backgroundImg = favList.backgroundImg,
+                description = favList.description,
+                isFavorite = favList.isFavorite
+            )
+        }
 
     fun mapEntityToDomain(input: GameEntity): Games =
         Games(

@@ -31,9 +31,6 @@ class FavoriteActivity : AppCompatActivity() {
             insets
         }
 
-
-
-
         favoriteViewModel.favGameList.observe(this@FavoriteActivity) { favList ->
             gameFavListAdapter.submitList(favList)
             with(binding.rvFavGame) {
