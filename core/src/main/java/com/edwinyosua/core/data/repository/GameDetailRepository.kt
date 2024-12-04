@@ -31,12 +31,11 @@ class GameDetailRepository(
             emit(ApiResponse.Loading)
             val response = apiService.getGameDescription(gameId)
             val gameData = response.toDomain()
-
-            if (gameData.toString() != ConstVal.emptyString) {
+            if (gameData.description != ConstVal.emptyString) {
                 emit(ApiResponse.Success(gameData))
             }
 
-            if (gameData.toString() == ConstVal.emptyString) {
+            if (gameData.description == ConstVal.emptyString) {
                 emit(ApiResponse.Empty)
             }
 
