@@ -1,6 +1,7 @@
 package com.edwinyosua.mobilegamestore.ui.detail
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -47,6 +48,13 @@ class DetailActivity : AppCompatActivity() {
             binding.fab.setOnClickListener {
                 isFavorite = !isFavorite
                 setFavIcon(isFavorite)
+                if (isFavorite) {
+                    Toast.makeText(this@DetailActivity, "Added To Favorite", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    Toast.makeText(this@DetailActivity, "Removed From Favorite", Toast.LENGTH_LONG)
+                        .show()
+                }
                 detailViewModel.setFavorite(detail, isFavorite)
             }
         }
