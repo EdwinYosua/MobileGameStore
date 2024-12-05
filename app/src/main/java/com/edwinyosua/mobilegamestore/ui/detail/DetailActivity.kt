@@ -1,6 +1,7 @@
 package com.edwinyosua.mobilegamestore.ui.detail
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -9,7 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.edwinyosua.core.data.remote.network.ApiResponse
-import com.edwinyosua.core.domain.home.model.Games
+import com.edwinyosua.core.domain.home.model.GamesList
 import com.edwinyosua.mobilegamestore.R
 import com.edwinyosua.mobilegamestore.databinding.ActivityDetailBinding
 import org.koin.android.ext.android.inject
@@ -31,57 +32,99 @@ class DetailActivity : AppCompatActivity() {
             insets
         }
 
-        val gameDetailData = getParcelableExtra(intent, EXTRA_DATA, Games::class.java)
-        if (gameDetailData != null) {
-            showGameDetail(gameDetailData)
-        }
+//      RECEIVE THE DATA ID
+        val gameDetailDataHome = getParcelableExtra(intent, EXTRA_DATA, GamesList::class.java) //FROM HOME PAGE
+        val gameIdDataFromFavorite = intent.getStringExtra(EXTRA_ID) //FROM FAVORITE PAGE
 
+        showGameDetail(gameDetailDataHome, gameIdDataFromFavorite)
+        checkGameIsFavorite()
     }
 
-    private fun showGameDetail(games: Games) {
 
+    private fun checkGameIsFavorite() {
+//      CHECK IF THE GAME IS FAVORITE OR NOT FROM LOCAL
+        detailViewModel.gameDetail.observe(this@DetailActivity) { detail ->
+            setFavIcon(detail.isFavorite)
+            var isFavorite = detail.isFavorite
+
+
+            binding.fab.setOnClickListener {
+                isFavorite = !isFavorite
+                setFavIcon(isFavorite)
+                detailViewModel.setFavorite(detail, isFavorite)
+
+//              TO INFORM THE FAVORITE STATUS
+                if (isFavorite) {
+                    Toast.makeText(this@DetailActivity, "Added To Favorite", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    Toast.makeText(this@DetailActivity, "Removed From Favorite", Toast.LENGTH_LONG)
+                        .show()
+                }
+            }
+        }
+    }
+
+    private fun showGameDetail(games: GamesList?, gameId: String?) {
         binding.apply {
-            tvGameName.text = games.name
-            tvGameRating.text = games.rating.toString()
-
-            detailViewModel.getGameDetail(games.id.toString())
-            detailViewModel.gameDetail.observe(this@DetailActivity) { gameDetail ->
-                when (gameDetail) {
-                    is ApiResponse.Loading -> {}
-                    is ApiResponse.Success -> {
-                        tvGameDesc.text = gameDetail.data.description
-                        fab.setOnClickListener {
-                            detailViewModel.setFavorite(games, gameDetail.data)
-                            setFavIcon(true)
+            detailViewModel.apply {
+                if (gameId != null) {
+//                  GET DATA FROM LOCAL
+                    getDetail(gameId.toInt())
+                    gameDetail.observe(this@DetailActivity) { localData ->
+                        localData.apply {
+                            tvGameName.text = name
+                            tvGameRating.text = rating.toString()
+                            tvGameDesc.text = description
+                            Glide.with(this@DetailActivity).load(backgroundImg).into(imvGameImage)
                         }
                     }
+                } else games?.apply {
+//                  GET DESCRIPTION DATA FROM API
+                    tvGameName.text = name
+                    tvGameRating.text = rating.toString()
 
-                    is ApiResponse.Empty -> tvGameDesc.text = "No Description"
-                    is ApiResponse.Error -> {}
+                    Glide.with(this@DetailActivity).load(backgroundImage).into(imvGameImage)
+
+                    getDescription(games.id).observe(this@DetailActivity) { gameDesc ->
+                        when (gameDesc) {
+                            is ApiResponse.Empty -> {}
+                            is ApiResponse.Loading -> {}
+                            is ApiResponse.Error -> {}
+                            is ApiResponse.Success -> {
+                                tvGameDesc.text = gameDesc.data.description
+//                              STORE DATA FROM HOME PAGE AND DESCRIPTION API TO LOCAL
+                                insertGameDataToLocal(games, gameDesc.data)
+                            }
+                        }
+                    }
                 }
-
             }
-
-
-            Glide.with(this@DetailActivity)
-                .load(games.backgroundImage)
-                .into(imvGameImage)
         }
     }
 
     private fun setFavIcon(favStatus: Boolean) {
-        binding.apply {
-            fab.setImageDrawable(
+        if (favStatus) {
+            binding.fab.setImageDrawable(
                 ContextCompat.getDrawable(
                     this@DetailActivity,
                     R.drawable.ic_favorite_white
                 )
             )
+        } else {
+            binding.fab.setImageDrawable(
+                ContextCompat.getDrawable(
+                    this@DetailActivity,
+                    R.drawable.ic_not_favorite_white
+                )
+            )
         }
+
     }
 
 
     companion object {
+        const val EXTRA_ID = "extra_Id"
         const val EXTRA_DATA = "extra_data"
     }
 }

@@ -7,15 +7,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.edwinyosua.core.databinding.ItemGameListBinding
-import com.edwinyosua.core.domain.home.model.Games
+import com.edwinyosua.core.domain.home.model.GamesList
 
-class GameListAdapter : ListAdapter<Games, GameListAdapter.GameListHolder>(DIFF_CALLBACK) {
+class GameListAdapter : ListAdapter<GamesList, GameListAdapter.GameListHolder>(DIFF_CALLBACK) {
 
-    var onItemClick: ((Games) -> Unit)? = null
+    var onItemClick: ((GamesList) -> Unit)? = null
 
     inner class GameListHolder(private var binding: ItemGameListBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: Games) {
+        fun bind(data: GamesList) {
             binding.apply {
                 tvGameTitle.text = data.name
                 tvGameRating.text = data.rating.toString()
@@ -47,14 +47,14 @@ class GameListAdapter : ListAdapter<Games, GameListAdapter.GameListHolder>(DIFF_
 
 
     companion object {
-        val DIFF_CALLBACK: DiffUtil.ItemCallback<Games> =
-            object : DiffUtil.ItemCallback<Games>() {
-                override fun areItemsTheSame(oldItem: Games, newItem: Games) =
+        val DIFF_CALLBACK: DiffUtil.ItemCallback<GamesList> =
+            object : DiffUtil.ItemCallback<GamesList>() {
+                override fun areItemsTheSame(oldItem: GamesList, newItem: GamesList) =
                     oldItem.id == newItem.id
 
                 override fun areContentsTheSame(
-                    oldItem: Games,
-                    newItem: Games
+                    oldItem: GamesList,
+                    newItem: GamesList
                 ) = oldItem.id == newItem.id
 
             }

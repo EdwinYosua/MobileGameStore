@@ -4,7 +4,6 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.edwinyosua.core.utils.ConstVal
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -20,8 +19,8 @@ data class GameEntity(
     @ColumnInfo("backgroundImg")
     val backgroundImg: String,
     @ColumnInfo("description")
-    val description: String? = ConstVal.emptyString,
+    val description: String,
     @ColumnInfo("favorite")
-    val isFavorite: Boolean = false
+    var isFavorite: Boolean
 
 ) : Parcelable
