@@ -32,18 +32,18 @@ class DetailActivity : AppCompatActivity() {
             insets
         }
 
-//      RECEIVE THE DATA FROM HOME PAGE
-        val gameDetailData = getParcelableExtra(intent, EXTRA_DATA, GamesList::class.java)
+//      RECEIVE THE DATA ID
+        val gameDetailDataHome = getParcelableExtra(intent, EXTRA_DATA, GamesList::class.java) //FROM HOME PAGE
+        val gameIdDataFromFavorite = intent.getStringExtra(EXTRA_ID) //FROM FAVORITE PAGE
 
-        if (gameDetailData != null) {
-            showGameDetail(gameDetailData)
-            checkGameIsFavorite()
-        }
+        showGameDetail(gameDetailDataHome, gameIdDataFromFavorite)
+        checkGameIsFavorite()
     }
 
 
     private fun checkGameIsFavorite() {
-        detailViewModel.getGameDetail.observe(this@DetailActivity) { detail ->
+//      CHECK IF THE GAME IS FAVORITE OR NOT FROM LOCAL
+        detailViewModel.gameDetail.observe(this@DetailActivity) { detail ->
             setFavIcon(detail.isFavorite)
             var isFavorite = detail.isFavorite
 
@@ -65,32 +65,39 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun showGameDetail(games: GamesList) {
+    private fun showGameDetail(games: GamesList?, gameId: String?) {
         binding.apply {
             detailViewModel.apply {
-                games.apply {
+                if (gameId != null) {
+//                  GET DATA FROM LOCAL
+                    getDetail(gameId.toInt())
+                    gameDetail.observe(this@DetailActivity) { localData ->
+                        localData.apply {
+                            tvGameName.text = name
+                            tvGameRating.text = rating.toString()
+                            tvGameDesc.text = description
+                            Glide.with(this@DetailActivity).load(backgroundImg).into(imvGameImage)
+                        }
+                    }
+                } else games?.apply {
+//                  GET DESCRIPTION DATA FROM API
                     tvGameName.text = name
                     tvGameRating.text = rating.toString()
+
+                    Glide.with(this@DetailActivity).load(backgroundImage).into(imvGameImage)
+
                     getDescription(games.id).observe(this@DetailActivity) { gameDesc ->
                         when (gameDesc) {
                             is ApiResponse.Empty -> {}
-                            is ApiResponse.Error -> {}
                             is ApiResponse.Loading -> {}
+                            is ApiResponse.Error -> {}
                             is ApiResponse.Success -> {
-//                              FETCH ITEM DESCRIPTION FROM API
-//                              SINCE THE DATA AT HOME PAGE COMES FROM DIFFERENT GSON OBJECT
                                 tvGameDesc.text = gameDesc.data.description
-
-//                              PUT THE DATA FROM HOME AND API(GAME DESCRIPTION) TO LOCAL
-//                              EVERY TIME THE ITEM DETAIL CLICKED
-//                              BECAUSE THE LIST AT HOME PAGE KEEP UPDATING
+//                              STORE DATA FROM HOME PAGE AND DESCRIPTION API TO LOCAL
                                 insertGameDataToLocal(games, gameDesc.data)
                             }
                         }
                     }
-                    Glide.with(this@DetailActivity)
-                        .load(backgroundImage)
-                        .into(imvGameImage)
                 }
             }
         }
@@ -117,6 +124,7 @@ class DetailActivity : AppCompatActivity() {
 
 
     companion object {
+        const val EXTRA_ID = "extra_Id"
         const val EXTRA_DATA = "extra_data"
     }
 }

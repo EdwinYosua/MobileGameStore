@@ -14,8 +14,8 @@ import kotlinx.coroutines.launch
 class DetailViewModel(private val gameRepo: GameDetailUseCase) : ViewModel() {
 
 
-    private val _getGameDetail = MutableLiveData<Games>()
-    val getGameDetail: LiveData<Games> by lazy { _getGameDetail }
+    private val _gameDetail = MutableLiveData<Games>()
+    val gameDetail: LiveData<Games> by lazy { _gameDetail }
 
     fun getDescription(gameId: Int) = gameRepo.getGameDescription(gameId).asLiveData()
 
@@ -23,15 +23,21 @@ class DetailViewModel(private val gameRepo: GameDetailUseCase) : ViewModel() {
         viewModelScope.launch {
             gameRepo.insertGameData(game, gameDesc)
 
-//          COLLECT GAME DATA BASE ON THEIR ID FROM LOCAL
-            gameRepo.getGameDetail(game.id).collect {
-                _getGameDetail.value = it
-            }
+//          FOR FAVORITE FUNCTION TO CHECK WHETHER THE ITEM IS FAVORITE OR NOT
+            getDetail(game.id)
         }
     }
 
     fun setFavorite(gameData: Games, newState: Boolean) {
         gameRepo.setFavorite(gameData, newState)
+    }
+
+    fun getDetail(gameId: Int) {
+        viewModelScope.launch {
+            gameRepo.getGameDetail(gameId).collect {
+                _gameDetail.value = it
+            }
+        }
     }
 
 
