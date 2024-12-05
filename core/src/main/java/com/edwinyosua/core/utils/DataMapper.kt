@@ -40,6 +40,16 @@ object DataMapper {
             isFavorite = input.isFavorite
         )
 
+    fun mapDomainToEntity(games: Games): GameEntity =
+        GameEntity(
+            id = games.id,
+            name = games.name,
+            rating = games.rating,
+            backgroundImg = games.backgroundImg,
+            description = games.description,
+            isFavorite = games.isFavorite
+        )
+
     fun mapEntityListToDomainList(input: List<GameEntity>): List<Games> =
         input.map { gameList ->
             Games(
@@ -51,15 +61,4 @@ object DataMapper {
                 isFavorite = gameList.isFavorite
             )
         }
-
-
-    fun mapDomainToEntity(games: Games): GameEntity =
-        GameEntity(
-            id = games.id,
-            name = games.name,
-            rating = games.rating,
-            backgroundImg = games.backgroundImg,
-            description = games.backgroundImg,
-            isFavorite = games.isFavorite
-        )
 }

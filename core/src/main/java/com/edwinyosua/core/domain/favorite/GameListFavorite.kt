@@ -9,6 +9,6 @@ data class GameListFavorite(
     val name: String,
     val rating: Double,
     val backgroundImg: String,
-    val description: String?,
+    val description: String,
     val isFavorite: Boolean
 ) : Parcelable

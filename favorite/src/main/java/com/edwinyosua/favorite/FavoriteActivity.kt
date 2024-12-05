@@ -2,6 +2,7 @@ package com.edwinyosua.favorite
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -35,8 +36,11 @@ class FavoriteActivity : AppCompatActivity() {
 //      SET THE FAVORITE LIST TO RECYCLER VIEW
         showGameList()
 
-        gameFavListAdapter.onItemClick = {
+        gameFavListAdapter.onItemClick = { selectedData ->
             val intent = Intent(this@FavoriteActivity, DetailActivity::class.java)
+            val gameId = selectedData.id
+//          SEND GAME ID TO DETAIL
+            intent.putExtra(DetailActivity.EXTRA_ID, gameId.toString())
             startActivity(intent)
         }
     }
@@ -50,6 +54,4 @@ class FavoriteActivity : AppCompatActivity() {
             }
         }
     }
-
-
 }

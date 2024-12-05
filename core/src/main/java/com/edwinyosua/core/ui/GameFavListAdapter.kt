@@ -1,5 +1,6 @@
 package com.edwinyosua.core.ui
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -24,6 +25,8 @@ class GameFavListAdapter :
                 Glide.with(itemView.context)
                     .load(data.backgroundImg)
                     .into(ivGameImage)
+
+                
             }
         }
 
