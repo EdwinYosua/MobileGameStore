@@ -2,7 +2,9 @@ package com.edwinyosua.mobilegamestore.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.edwinyosua.core.data.remote.network.ApiResponse
@@ -27,18 +29,33 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
 //      FETCH LIST ITEM WITH DATA(NAME, RATING, IMAGE) FROM API
         homeViewModel.gameList.observe(viewLifecycleOwner) { gameList ->
-            if (gameList != null) {
-                when (gameList) {
-                    is ApiResponse.Empty -> {}
-                    is ApiResponse.Error -> {}
-                    is ApiResponse.Loading -> {}
-                    is ApiResponse.Success -> {
+            binding.apply {
+
+                if (gameList != null) {
+                    when (gameList) {
+                        is ApiResponse.Empty -> {
+                            progBar.visibility = View.GONE
+                            txvEmptyList.visibility = View.VISIBLE
+                        }
+
+                        is ApiResponse.Error -> {
+                            Log.e("HomeViewModel Response", gameList.toString())
+                        }
+
+                        is ApiResponse.Loading -> {
+                            progBar.visibility = View.VISIBLE
+                        }
+
+                        is ApiResponse.Success -> {
 //                      SET UP THE LIST TO RECYCLERVIEW
-                        gameListAdapter.submitList(gameList.data)
-                        with(binding.rvGame) {
-                            layoutManager = LinearLayoutManager(context)
-                            setHasFixedSize(true)
-                            adapter = gameListAdapter
+                            txvEmptyList.visibility = View.GONE
+                            progBar.visibility = View.GONE
+                            gameListAdapter.submitList(gameList.data)
+                            with(binding.rvGame) {
+                                layoutManager = LinearLayoutManager(context)
+                                setHasFixedSize(true)
+                                adapter = gameListAdapter
+                            }
                         }
                     }
                 }

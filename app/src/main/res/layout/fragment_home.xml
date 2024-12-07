@@ -13,4 +13,26 @@
         android:layout_height="wrap_content"
         tools:listitem="@layout/item_game_list" />
 
+
+    <TextView
+        android:id="@+id/txv_empty_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/urbanist_extrabold"
+        android:text="@string/no_data"
+        android:textColor="@color/white"
+        android:textSize="35sp"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <ProgressBar
+        android:id="@+id/prog_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
