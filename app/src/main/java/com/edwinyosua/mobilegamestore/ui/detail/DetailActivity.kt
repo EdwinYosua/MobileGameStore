@@ -1,8 +1,9 @@
 package com.edwinyosua.mobilegamestore.ui.detail
 
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.IntentCompat.getParcelableExtra
@@ -32,7 +33,8 @@ class DetailActivity : AppCompatActivity() {
         }
 
 //      RECEIVE THE DATA ID
-        val gameDetailDataHome = getParcelableExtra(intent, EXTRA_DATA, GamesList::class.java) //FROM HOME PAGE
+        val gameDetailDataHome =
+            getParcelableExtra(intent, EXTRA_DATA, GamesList::class.java) //FROM HOME PAGE
         val gameIdDataFromFavorite = intent.getStringExtra(EXTRA_ID) //FROM FAVORITE PAGE
 
         showGameDetail(gameDetailDataHome, gameIdDataFromFavorite)
@@ -43,6 +45,7 @@ class DetailActivity : AppCompatActivity() {
     private fun checkGameIsFavorite() {
 //      CHECK IF THE GAME IS FAVORITE OR NOT FROM LOCAL
         detailViewModel.gameDetail.observe(this@DetailActivity) { detail ->
+            binding.fab.visibility = View.VISIBLE
             setFavIcon(detail.isFavorite)
             var isFavorite = detail.isFavorite
 
@@ -88,11 +91,27 @@ class DetailActivity : AppCompatActivity() {
 
                     getDescription(games.id).observe(this@DetailActivity) { gameDesc ->
                         when (gameDesc) {
-                            is ApiResponse.Empty -> {}
-                            is ApiResponse.Loading -> {}
-                            is ApiResponse.Error -> {}
+                            is ApiResponse.Empty -> {
+                                Toast.makeText(this@DetailActivity, "No Data", Toast.LENGTH_LONG)
+                                    .show()
+                            }
+
+                            is ApiResponse.Loading -> {
+                                prgBar.visibility = View.VISIBLE
+                            }
+
+                            is ApiResponse.Error -> {
+                                Log.e("Game Description Response", gameDesc.toString())
+                                Toast.makeText(
+                                    this@DetailActivity,
+                                    gameDesc.toString(),
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+
                             is ApiResponse.Success -> {
                                 tvGameDesc.text = gameDesc.data.description
+                                prgBar.visibility = View.GONE
 //                              STORE DATA FROM HOME PAGE AND DESCRIPTION API TO LOCAL
                                 insertGameDataToLocal(games, gameDesc.data)
                             }
