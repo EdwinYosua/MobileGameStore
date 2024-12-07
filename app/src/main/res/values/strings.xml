@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MobileGameStore</string>
+    <string name="app_name">Mobile Game Store</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
@@ -8,4 +8,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_shopping_cart">Shopping Cart</string>
+    <string name="no_data">No Data</string>
+    <string name="title_activity_detail_home">DetailHomeActivity</string>
 </resources>

@@ -22,7 +22,6 @@ class FavoriteActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         binding = ActivityFavoriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -50,6 +49,7 @@ class FavoriteActivity : AppCompatActivity() {
             gameFavListAdapter.submitList(favList)
             with(binding.rvFavGame) {
                 layoutManager = LinearLayoutManager(context)
+                setHasFixedSize(true)
                 adapter = gameFavListAdapter
             }
         }
