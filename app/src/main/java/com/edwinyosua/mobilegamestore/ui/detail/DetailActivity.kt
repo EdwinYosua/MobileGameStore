@@ -22,7 +22,6 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -73,6 +72,7 @@ class DetailActivity : AppCompatActivity() {
                     getDetail(gameId.toInt())
                     gameDetail.observe(this@DetailActivity) { localData ->
                         localData.apply {
+
                             tvGameName.text = name
                             tvGameRating.text = rating.toString()
                             tvGameDesc.text = description
