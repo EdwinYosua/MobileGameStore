@@ -5,13 +5,13 @@ import com.edwinyosua.core.data.local.LocalDataSources
 import com.edwinyosua.core.data.remote.network.ApiResponse
 import com.edwinyosua.core.data.remote.network.ApiService
 import com.edwinyosua.core.domain.Games
-import com.edwinyosua.core.domain.detail.mapper.toDomain
 import com.edwinyosua.core.domain.detail.model.GameDescription
 import com.edwinyosua.core.domain.detail.repository.IGameDetailRepository
 import com.edwinyosua.core.domain.home.model.GamesList
 import com.edwinyosua.core.utils.AppExecutors
 import com.edwinyosua.core.utils.ConstVal
 import com.edwinyosua.core.utils.DataMapper
+import com.edwinyosua.core.utils.toDomain
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

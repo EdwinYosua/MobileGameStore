@@ -2,8 +2,8 @@ package com.edwinyosua.mobilegamestore.di
 
 import com.edwinyosua.core.domain.detail.usecase.GameDetailInteractor
 import com.edwinyosua.core.domain.detail.usecase.GameDetailUseCase
-import com.edwinyosua.core.domain.favorite.GameFavoriteInteractor
-import com.edwinyosua.core.domain.favorite.GameFavoriteUseCase
+import com.edwinyosua.core.domain.favorite.usecase.GameFavoriteInteractor
+import com.edwinyosua.core.domain.favorite.usecase.GameFavoriteUseCase
 import com.edwinyosua.core.domain.home.usecase.GameListListInteractor
 import com.edwinyosua.core.domain.home.usecase.GameListUseCase
 import com.edwinyosua.mobilegamestore.ui.detail.DetailViewModel

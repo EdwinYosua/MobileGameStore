@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.edwinyosua.core.databinding.ItemGameListBinding
-import com.edwinyosua.core.domain.favorite.GameListFavorite
+import com.edwinyosua.core.domain.favorite.model.GameListFavorite
 
 class GameFavListAdapter :
     ListAdapter<GameListFavorite, GameFavListAdapter.FavGameListHolder>(FAV_DIFF_CALLBACK) {
