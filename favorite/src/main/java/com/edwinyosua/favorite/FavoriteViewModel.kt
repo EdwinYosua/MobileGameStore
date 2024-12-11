@@ -6,5 +6,5 @@ import com.edwinyosua.core.domain.favorite.usecase.GameFavoriteUseCase
 
 class FavoriteViewModel(gameFavRepo: GameFavoriteUseCase) : ViewModel() {
 
-    val favGameList = gameFavRepo.getAllGameFavoriteList().asLiveData()
+    val favGameList by lazy { gameFavRepo.getAllGameFavoriteList().asLiveData() }
 }

@@ -7,6 +7,6 @@ import com.edwinyosua.core.domain.home.usecase.GameListUseCase
 class HomeViewModel(gameRepo: GameListUseCase) : ViewModel() {
 
     //  GET GAME LIST FROM API
-    val gameList = gameRepo.getGameList().asLiveData()
+    val gameList by lazy { gameRepo.getGameList().asLiveData() }
 
 }
