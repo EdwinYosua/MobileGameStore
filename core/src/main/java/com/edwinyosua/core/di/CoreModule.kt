@@ -26,7 +26,7 @@ val dataBaseModule = module {
     single {
         Room.databaseBuilder(
             androidContext(),
-            GameDatabase::class.java, "game_table"
+            GameDatabase::class.java, "GameTable.db"
         ).fallbackToDestructiveMigration().build()
     }
 }
