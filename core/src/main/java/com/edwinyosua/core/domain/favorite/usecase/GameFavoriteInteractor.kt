@@ -1,5 +1,7 @@
-package com.edwinyosua.core.domain.favorite
+package com.edwinyosua.core.domain.favorite.usecase
 
+import com.edwinyosua.core.domain.favorite.model.GameListFavorite
+import com.edwinyosua.core.domain.favorite.repository.IGameFavoriteRepository
 import kotlinx.coroutines.flow.Flow
 
 class GameFavoriteInteractor(private val gameFavRepo: IGameFavoriteRepository) :

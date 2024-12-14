@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="image">Image</string>
+    <string name="item_image">item_desc</string>
     <string name="star_icon">star icon</string>
 </resources>

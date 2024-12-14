@@ -1,12 +1,32 @@
 package com.edwinyosua.core.utils
 
 import com.edwinyosua.core.data.local.entities.GameEntity
+import com.edwinyosua.core.data.remote.response.GameDetailResponse
+import com.edwinyosua.core.data.remote.response.GameListResponse
 import com.edwinyosua.core.domain.Games
 import com.edwinyosua.core.domain.detail.model.GameDescription
-import com.edwinyosua.core.domain.favorite.GameListFavorite
+import com.edwinyosua.core.domain.favorite.model.GameListFavorite
 import com.edwinyosua.core.domain.home.model.GamesList
 
+
+fun GameDetailResponse.toDomain(): GameDescription =
+    GameDescription(
+        description = this.descriptionRaw
+    )
+
+fun List<GameListResponse>.toDomain(): List<GamesList> =
+    this.map {
+        GamesList(
+            id = it.id,
+            name = it.name,
+            rating = it.rating,
+            backgroundImage = it.backgroundImage,
+        )
+    }
+
+
 object DataMapper {
+
 
     fun mapGameDataToEntity(gameData: GamesList, gameDescription: GameDescription): GameEntity =
         GameEntity(
@@ -50,15 +70,4 @@ object DataMapper {
             isFavorite = games.isFavorite
         )
 
-    fun mapEntityListToDomainList(input: List<GameEntity>): List<Games> =
-        input.map { gameList ->
-            Games(
-                id = gameList.id,
-                name = gameList.name,
-                rating = gameList.rating,
-                backgroundImg = gameList.backgroundImg,
-                description = gameList.description,
-                isFavorite = gameList.isFavorite
-            )
-        }
 }

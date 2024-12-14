@@ -1,4 +1,4 @@
-package com.edwinyosua.core.domain.favorite
+package com.edwinyosua.core.domain.favorite.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

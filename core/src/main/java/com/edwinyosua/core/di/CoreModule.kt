@@ -8,7 +8,7 @@ import com.edwinyosua.core.data.repository.GameDetailRepository
 import com.edwinyosua.core.data.repository.GameFavoriteRepository
 import com.edwinyosua.core.data.repository.GameListRepository
 import com.edwinyosua.core.domain.detail.repository.IGameDetailRepository
-import com.edwinyosua.core.domain.favorite.IGameFavoriteRepository
+import com.edwinyosua.core.domain.favorite.repository.IGameFavoriteRepository
 import com.edwinyosua.core.domain.home.repository.IGameListRepository
 import com.edwinyosua.core.ui.GameFavListAdapter
 import com.edwinyosua.core.ui.GameListAdapter
@@ -26,7 +26,7 @@ val dataBaseModule = module {
     single {
         Room.databaseBuilder(
             androidContext(),
-            GameDatabase::class.java, "game_table"
+            GameDatabase::class.java, "GameTable.db"
         ).fallbackToDestructiveMigration().build()
     }
 }
