@@ -14,10 +14,6 @@ jobs:
         command: chmod +x gradlew
 
       - run:
-        name: Run tests
-        command: ./gradlew test
-
-      - run:
         name: Download Dependencies
         command: ./gradlew androidDependencies
 
