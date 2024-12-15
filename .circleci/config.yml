@@ -9,15 +9,19 @@ jobs:
     steps:
       - checkout
 
-      - name: Gradle Permission
-        run: chmod +x gradlew
+      - run:
+        name: Gradle Permission
+        command: chmod +x gradlew
 
-      - name: Run tests
-        run: ./gradlew test
+      - run:
+        name: Run tests
+        command: ./gradlew test
 
-      - name: Download Dependencies
-        run: ./gradlew androidDependencies
+      - run:
+        name: Download Dependencies
+        command: ./gradlew androidDependencies
 
-      - name: Run Build
-        run: ./gradlew build
+      - run:
+        name: Run Build
+        command: ./gradlew build
 
