@@ -9,10 +9,10 @@ jobs:
     steps:
       - checkout
 
+      - run: chmod +x gradlew
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
-
 
       - run:
           name: Run Build
