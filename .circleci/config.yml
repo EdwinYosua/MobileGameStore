@@ -14,6 +14,10 @@ jobs:
           command: ./gradlew androidDependencies
 
       - run:
+          name: Accept Android SDK Licenses
+          command: (yes || true) | sdkmanager --licenses
+
+      - run:
           name: Run Build
           command: ./gradlew build
 
