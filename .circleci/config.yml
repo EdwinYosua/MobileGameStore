@@ -8,9 +8,10 @@ jobs:
       - checkout
 
       - run: chmod +x gradlew
+          
       - run:
-        name: Download Dependencies
-        command: ./gradlew androidDependencies
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
 
       - run:
           name: Run Build
