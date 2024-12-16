@@ -78,4 +78,6 @@ dependencies {
     api(libs.glide)
 
     api(libs.koin.android)
+
+    debugImplementation(libs.leakcanary.android)
 }
