@@ -14,6 +14,8 @@ import com.edwinyosua.core.ui.GameFavListAdapter
 import com.edwinyosua.core.ui.GameListAdapter
 import com.edwinyosua.core.utils.AppExecutors
 import com.edwinyosua.core.utils.ConstVal
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -24,10 +26,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 val dataBaseModule = module {
     factory { get<GameDatabase>().gameDao() }
     single {
+        val passphrase: ByteArray = SQLiteDatabase.getBytes("edwinyosua".toCharArray())
+        val factory = SupportFactory(passphrase)
         Room.databaseBuilder(
             androidContext(),
             GameDatabase::class.java, "GameTable.db"
-        ).fallbackToDestructiveMigration().build()
+        ).fallbackToDestructiveMigration()
+            .openHelperFactory(factory)
+            .build()
     }
 }
 
