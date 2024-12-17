@@ -20,7 +20,14 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+        debug {
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -67,6 +74,8 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(libs.converter.gson)
 
+
+    implementation(libs.kotlin.stdlib)
 
     api(libs.androidx.recyclerview)
 

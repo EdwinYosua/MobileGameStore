@@ -1,21 +1,23 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+##---------------Begin: proguard configuration for SQLCipher  ----------
+-keep,includedescriptorclasses class net.sqlcipher.** { *; }
+-keep,includedescriptorclasses interface net.sqlcipher.** { *; }
+##---------------End: proguard configuration for SQLCipher  ----------
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+# Existing rules
+-keep class com.edwinyosua.** { *; }
+-keepattributes *Annotation*
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# Keep the Resource class and its inner classes
+-keepclassmembers class com.edwinyosua.core.data.remote.network.ApiResponse {*;}
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# Alternatively, keep all inner classes of Resource
+-keep,allowobfuscation class com.edwinyosua.core.data.ApiResponse$* {*;}
+
+-keep class kotlin.** { *; }
+-keepclassmembers class kotlin.** { *; }
+-dontwarn kotlin.**
+
+-keep class androidx.viewbinding.** { *; }
+-keepclassmembers class androidx.viewbinding.** { *; }
+-dontwarn androidx.viewbinding.**
+
