@@ -1,6 +1,7 @@
 package com.edwinyosua.core.di
 
 import androidx.room.Room
+import com.edwinyosua.core.BuildConfig
 import com.edwinyosua.core.data.local.LocalDataSources
 import com.edwinyosua.core.data.local.room.GameDatabase
 import com.edwinyosua.core.data.remote.network.ApiService
@@ -16,6 +17,7 @@ import com.edwinyosua.core.utils.AppExecutors
 import com.edwinyosua.core.utils.ConstVal
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -38,9 +40,19 @@ val dataBaseModule = module {
 }
 
 val networkModules = module {
+
+
     single {
+        val hostname = StringBuilder(ConstVal.BASE_URL)
+        val certifiedHostname = hostname.delete(0, 8).toString()
+        val certificatePinner = CertificatePinner.Builder()
+            .add(certifiedHostname, ConstVal.CERT_1)
+            .add(certifiedHostname, ConstVal.CERT_2)
+            .build()
+
         OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .addInterceptor(HttpLoggingInterceptor().setLevel(if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE))
+            .certificatePinner(certificatePinner)
             .build()
     }
 
