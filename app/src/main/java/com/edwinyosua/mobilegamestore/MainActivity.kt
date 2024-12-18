@@ -64,8 +64,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 observeFragment(fragment)
             }
 
-            R.id.navigation_favorite ->
-            {
+            R.id.navigation_favorite -> {
                 val uri = Uri.parse("mobilegamestore://favorite")
                 startActivity(Intent(Intent.ACTION_VIEW, uri))
             }
