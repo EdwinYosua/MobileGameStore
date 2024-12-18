@@ -16,6 +16,8 @@ android {
         consumerProguardFiles("consumer-rules.pro")
         buildConfigField("String", "BASE_URL", "\"${project.findProperty("BASE_URL")}\"")
         buildConfigField("String", "API_KEY", "\"${project.findProperty("API_KEY")}\"")
+        buildConfigField("String", "CERT_1", "\"${project.findProperty("CERT_1")}\"")
+        buildConfigField("String", "CERT_2", "\"${project.findProperty("CERT_2")}\"")
     }
 
     buildTypes {
