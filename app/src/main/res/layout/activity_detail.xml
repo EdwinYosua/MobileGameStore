@@ -106,6 +106,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
+        android:contentDescription="@string/favorite_icon"
         android:visibility="gone"
         app:layout_anchor="@id/detail_appbar"
         app:layout_anchorGravity="end"
