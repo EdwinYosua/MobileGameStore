@@ -17,16 +17,18 @@ import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    private lateinit var binding: ActivityMainBinding
+    private var _binding: ActivityMainBinding? = null
     private lateinit var drawer: DrawerLayout
     private lateinit var fragment: Fragment
+
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        setSupportActionBar(binding.appBarMain.toolbar)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(_binding?.root)
+        setSupportActionBar(_binding?.appBarMain?.toolbar)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO) //disable night mode in app
 
 
@@ -52,6 +54,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 supportActionBar?.title = getString(R.string.app_name)
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
